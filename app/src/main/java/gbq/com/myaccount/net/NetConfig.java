@@ -14,7 +14,7 @@ public class NetConfig {
     public static int UId = 0;
     public  static String Token = "";
     public final static String URL_REL= "http://cdc.server.nubia.cn/api/";
-    public final static String LOGIN="login/check.do";
+    public final static String LOGIN="loginInterface/login.do";
     public final static String LOGOUT="login/logout.do";
-    public final static String MODIFY_PASSWORD ="login/modify_password.do";
+    public final static String MODIFY_PASSWORD ="loginInterface/reset.do";
 }

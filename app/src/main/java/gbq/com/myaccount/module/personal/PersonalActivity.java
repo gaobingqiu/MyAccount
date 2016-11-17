@@ -3,27 +3,22 @@ package gbq.com.myaccount.module.personal;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 import gbq.com.myaccount.MainActivity;
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.module.news.NewsActivity;
 import gbq.com.myaccount.module.photo.PhotoActivity;
 
-public class PersonalActivity extends Activity implements View.OnClickListener,IPersonalCtrl {
-    TextView userNameView;
-    String tag = "activity_personal";
-    ListView linkList;
-    ArrayList<Map<String, Object>> mData = new ArrayList<Map<String, Object>>();
+public class PersonalActivity extends Activity implements View.OnClickListener, IPersonalCtrl {
+    private final static String tag = "PersonalActivity->";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +26,7 @@ public class PersonalActivity extends Activity implements View.OnClickListener,I
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_personal);
         findIds();
+        initRecycleView();
     }
 
     private void findIds() {
@@ -42,6 +38,20 @@ public class PersonalActivity extends Activity implements View.OnClickListener,I
 
         Button button = (Button) findViewById(R.id.bt_user_out);
         button.setOnClickListener(this);
+
+    }
+
+    private void initRecycleView() {
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.main_recycler);
+        int[] images = {R.mipmap.mus_cai_icon03, R.mipmap.mus_cai_icon04, R.mipmap.mus_cai_icon05,
+                R.mipmap.mus_cai_icon06, R.mipmap.mus_cai_icon07};
+        String[] titles = {"实名认证", "手机绑定", "邮箱绑定", "登录密码管理", "常见问题"};
+        LinkAdapter adapter = new LinkAdapter(this,images,titles);
+        recyclerView.setAdapter(adapter);
+        //最后一个参数是反转布局一定是false,为true的时候为逆向显示，在聊天记录中可能会有使用
+        //这个东西在显示后才会加载，不会像ScollView一样一次性加载导致内存溢出
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
