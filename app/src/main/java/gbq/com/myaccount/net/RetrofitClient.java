@@ -27,7 +27,7 @@ public class RetrofitClient {
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            .connectionPool(new ConnectionPool(NetConfig.CONETION_COUNT, NetConfig.CONETION_TIME, TimeUnit.SECONDS))
+            .connectionPool(new ConnectionPool(NetConfig.CONNECT_COUNT, NetConfig.CONNECT_TIME, TimeUnit.SECONDS))
             // 设置8个同时连接的个数和每个保持时间为20s
             .build();
 

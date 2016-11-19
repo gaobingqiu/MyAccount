@@ -1,17 +1,15 @@
 package gbq.com.myaccount.module.main;
 
+import gbq.com.myaccount.base.IBaseCtrl;
+
 /**
  * Created by gbq on 2016-11-12.
  */
 
-public interface IMainCtrl{
+public interface IMainCtrl extends IBaseCtrl{
     void toRegisterActivity();
 
     void toPersonalActivity();
-
-    void showToast(String msg);
-
-    void showAlert(String msg);
 
     void saveLoginInfo(String username, String password);
 

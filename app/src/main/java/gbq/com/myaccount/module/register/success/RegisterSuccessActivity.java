@@ -1,8 +1,9 @@
-package gbq.com.myaccount.module.register;
+package gbq.com.myaccount.module.register.success;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ public class RegisterSuccessActivity extends Activity implements View.OnClickLis
         if (null != bundle) {
             String userName = bundle.getString("userName");
             String password = bundle.getString("password");
-            if (null == password || password.isEmpty()) {
+            if (TextUtils.isEmpty(password)) {
                 quickPartView.setVisibility(View.GONE);
             } else {
                 passwordView.setText(password);

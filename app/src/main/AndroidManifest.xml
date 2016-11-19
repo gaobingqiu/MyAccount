@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".module.register.RegisterSuccessActivity"
+            android:name=".module.register.success.RegisterSuccessActivity"
             android:label="RegisterSuccess">
             <intent-filter>
                 <action android:name="gbq.com.myaccount.module.personal.RegisterSuccessActivity"/>
