@@ -1,6 +1,8 @@
-package gbq.com.myaccount.base.entity;
+package gbq.com.myaccount.module.news;
 
 import java.util.List;
+
+import gbq.com.myaccount.module.news.News;
 
 public class Pager {
 	private int code; // current page

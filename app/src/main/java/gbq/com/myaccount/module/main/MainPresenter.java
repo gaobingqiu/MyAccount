@@ -3,7 +3,6 @@ package gbq.com.myaccount.module.main;
 import android.text.TextUtils;
 
 import gbq.com.myaccount.Define;
-import gbq.com.myaccount.base.entity.User;
 import gbq.com.myaccount.base.util.JsonUtil;
 import gbq.com.myaccount.net.HttpListener;
 import gbq.com.myaccount.net.NetApis;

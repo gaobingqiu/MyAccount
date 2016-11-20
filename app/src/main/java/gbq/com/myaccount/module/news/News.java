@@ -1,4 +1,4 @@
-package gbq.com.myaccount.base.entity;
+package gbq.com.myaccount.module.news;
 
 /**
  * 新闻

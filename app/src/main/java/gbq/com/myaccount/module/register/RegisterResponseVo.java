@@ -1,4 +1,4 @@
-package gbq.com.myaccount.base.entity;
+package gbq.com.myaccount.module.register;
 
 public class RegisterResponseVo {
 	private String tel;

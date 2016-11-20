@@ -16,11 +16,12 @@ import gbq.com.myaccount.module.register.success.RegisterSuccessActivity;
 import gbq.com.myaccount.net.HttpListener;
 
 import static gbq.com.myaccount.R.id.code;
+import static gbq.com.myaccount.R.id.loginName;
+import static gbq.com.myaccount.R.id.userName;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, IRegisterCtrl {
 	private final static String tag = "RegisterActivity";
 	private EditText loginNameView, telView, codeView, passwordView;
-	private String loginName, tel, password;
 	private CheckBox check;
 
 	private RegisterPresenter presenter;
@@ -44,7 +45,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		Button fetchCodeBt = (Button) findViewById(R.id.bt_fetch_code);
 		fetchCodeBt.setOnClickListener(this);
 
-		loginNameView = (EditText) findViewById(R.id.loginName);
+		loginNameView = (EditText) findViewById(loginName);
 		telView = (EditText) findViewById(R.id.tel);
 		codeView = (EditText) findViewById(code);
 		passwordView = (EditText) findViewById(R.id.password);
@@ -65,14 +66,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		int id = view.getId();
 		switch (id) {
 			case R.id.bt_register:
-				loginName = loginNameView.getText().toString();
-				password = passwordView.getText().toString();
+				String userName = loginNameView.getText().toString();
+				String password = passwordView.getText().toString();
 				String code = codeView.getText().toString();
-				tel = telView.getText().toString();
-				presenter.register(loginName,password,tel,code,check.isChecked());
+				String tel = telView.getText().toString();
+				presenter.register(userName, password, tel,code,check.isChecked());
 				break;
 			case R.id.bt_quick_register:
-				String userName = loginNameView.getText().toString();
+				userName = loginNameView.getText().toString();
 				presenter.quickRegister(userName,check.isChecked());
 				break;
 			case R.id.bt_fetch_code:

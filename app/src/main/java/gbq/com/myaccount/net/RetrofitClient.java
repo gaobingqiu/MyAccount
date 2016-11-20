@@ -13,7 +13,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.functions.Action1;
 
 import static gbq.com.myaccount.net.NetConfig.DEFAULT_TIMEOUT;
 
@@ -21,11 +24,11 @@ import static gbq.com.myaccount.net.NetConfig.DEFAULT_TIMEOUT;
  * 网络请求
  * Created by gbq on 2016-10-4.
  */
-public class RetrofitClient {
+class RetrofitClient {
 
 	private static RetrofitClient mInstance;
 
-	public static RetrofitClient getInstance() {
+	static RetrofitClient getInstance() {
 		if (null == mInstance) {
 			synchronized (NetApis.class) {
 				mInstance = new RetrofitClient();
@@ -42,6 +45,7 @@ public class RetrofitClient {
 			.build();
 
 	private Retrofit retrofit = new Retrofit.Builder()
+			.addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //添加Rxjava
 			.addConverterFactory(GsonConverterFactory.create())
 			.client(okHttpClient)
 			//设置服务器ip，必须依据“/”结尾
@@ -56,7 +60,7 @@ public class RetrofitClient {
 	 * @param map
 	 * @param listener
 	 */
-	public void executePost(String url, HashMap<String, String> map, final HttpListener listener) {
+	void executePost(String url, HashMap<String, String> map, final HttpListener listener) {
 		Call<BaseResponse> baseCall = retrofitClientService.executePost(url, map);
 		map.put("token", PhoneUtil.getMac());
 		retrofitClientListener = listener;
@@ -64,6 +68,16 @@ public class RetrofitClient {
 		Log.d("RetrofitClient", "url = " + NetConfig.URL_REL + url);
 		//noinspection unchecked
 		baseCall.enqueue(callback);
+	}
+
+	void downloadImage(final String url,final HttpListener listener ){
+		Observable observable = retrofitClientService.downloadImage(url);
+		observable.subscribe(new Action1() {
+			@Override
+			public void call(Object o) {
+
+			}
+		});
 	}
 
 	private HttpListener retrofitClientListener;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +62,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (!TextUtils.isEmpty(mUsername)) {
             mSaveUserCb.setChecked(true);
             userNameView.setText(mUsername);
+            //设置光标的位置
+            userNameView.setSelection(mUsername.length());
         }
         if (!TextUtils.isEmpty(mPassword)) {
             passwordView.setText(mPassword);

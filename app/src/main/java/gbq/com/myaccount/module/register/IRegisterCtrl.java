@@ -7,6 +7,6 @@ import gbq.com.myaccount.base.IBaseCtrl;
  * Created by gbq on 2016-11-12.
  */
 
-public interface IRegisterCtrl extends IBaseCtrl{
+interface IRegisterCtrl extends IBaseCtrl {
 	void toRegisterSuccessActivity(String userName, String password);
 }

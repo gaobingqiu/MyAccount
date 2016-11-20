@@ -1,4 +1,4 @@
-package gbq.com.myaccount.base.entity;
+package gbq.com.myaccount.module.main;
 
 /**
  * 用户实体

@@ -1,6 +1,8 @@
 package gbq.com.myaccount.module.personal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +18,14 @@ import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.module.news.NewsActivity;
 import gbq.com.myaccount.module.photo.PhotoActivity;
 
-import static android.R.attr.button;
-
 public class PersonalActivity extends BaseActivity implements View.OnClickListener, IPersonalCtrl {
 	private final static String tag = "PersonalActivity->";
 	private String userName = "";
 
 	private TextView mPersonaNameTv;
 	private ImageView mPersonImageIv;
+
+	private PersonalPresenter mPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 		Bundle bundle = intent.getExtras();
 		initDate(bundle);
 		initRecycleView();
+		mPresenter = new PersonalPresenter(this);
 	}
 
 	private void initDate(Bundle bundle) {
@@ -50,14 +53,12 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 	}
 
 	private void findIds() {
-		ImageView imageView = (ImageView) findViewById(R.id.iv_user_img);
-		imageView.setOnClickListener(this);
-
 		TextView textView = (TextView) findViewById(R.id.tv_to_news);
 		textView.setOnClickListener(this);
 
 		mPersonaNameTv = (TextView) findViewById(R.id.tv_username);
 		mPersonImageIv = (ImageView)findViewById(R.id.iv_user_img);
+		mPersonaNameTv.setOnClickListener(this);
 
 		Button button = (Button) findViewById(R.id.bt_user_out);
 		button.setOnClickListener(this);
@@ -86,6 +87,18 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 	}
 
 	@Override
+	public void clearLoginInfo(){
+		// 获取SharedPreferences对象
+		SharedPreferences sharedPre = this.getSharedPreferences("config", Context.MODE_PRIVATE);
+		// 获取Editor对象
+		SharedPreferences.Editor editor = sharedPre.edit();
+		// 设置参数
+		editor.putString("username", null);
+		// 提交
+		editor.apply();
+	}
+
+	@Override
 	public void toNewsActivity() {
 		Intent intent = new Intent();
 		intent.setClass(PersonalActivity.this, NewsActivity.class);
@@ -110,7 +123,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 				toNewsActivity();
 				break;
 			case R.id.bt_user_out:
-				userLogout();
+				mPresenter.userLogout(userName);
 				break;
 			default:
 				break;
