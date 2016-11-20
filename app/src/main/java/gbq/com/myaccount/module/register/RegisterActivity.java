@@ -19,7 +19,6 @@ import static gbq.com.myaccount.R.id.code;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, IRegisterCtrl {
 	private final static String tag = "RegisterActivity";
-	private final static String action = "com.example.demo.RegisterSuccessActivity";
 	private EditText loginNameView, telView, codeView, passwordView;
 	private String loginName, tel, password;
 	private CheckBox check;
@@ -29,7 +28,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// 清除标题栏
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		findIds();

@@ -10,13 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import gbq.com.myaccount.R;
+import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.module.personal.PersonalActivity;
 
-public class RegisterSuccessActivity extends Activity implements View.OnClickListener,IRegisterSuccessCtrl {
+public class RegisterSuccessActivity extends BaseActivity implements View.OnClickListener,IRegisterSuccessCtrl {
     private TextView userNameView, passwordView;
     private LinearLayout quickPartView;
-    private String url_getUser = "loginInterface/getUser.do";
-    private String tag = "RegisterSuccessActivity->";
+    private final static String tag = "RegisterSuccessActivity->";
+
+    private String userName = "";
+
+    private RegisterSuccessPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +30,14 @@ public class RegisterSuccessActivity extends Activity implements View.OnClickLis
         findIds();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        initDate(bundle);
+
+        mPresenter = new RegisterSuccessPresenter(this);
+    }
+
+    private void initDate(Bundle bundle){
         if (null != bundle) {
-            String userName = bundle.getString("userName");
+            userName = bundle.getString("userName");
             String password = bundle.getString("password");
             if (TextUtils.isEmpty(password)) {
                 quickPartView.setVisibility(View.GONE);
@@ -48,7 +58,7 @@ public class RegisterSuccessActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void toPersonal() {
+    public void toPersonal(String userName,String imagePath) {
         Intent intent = new Intent();
         intent.setClass(RegisterSuccessActivity.this, PersonalActivity.class);
         startActivity(intent);
@@ -59,9 +69,7 @@ public class RegisterSuccessActivity extends Activity implements View.OnClickLis
         int id = view.getId();
         switch (id) {
             case R.id.tv_to_personal_activity:
-                toPersonal();
-                break;
-            case R.id.bt_fetch_code:
+                mPresenter.getUser(userName);
                 break;
             default:
                 break;

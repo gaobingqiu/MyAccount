@@ -9,7 +9,7 @@ import gbq.com.myaccount.base.IBaseCtrl;
 public interface IMainCtrl extends IBaseCtrl{
     void toRegisterActivity();
 
-    void toPersonalActivity();
+    void toPersonalActivity(String userName,String imagePath);
 
     void saveLoginInfo(String username, String password);
 

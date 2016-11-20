@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void toPersonalActivity() {
+    public void toPersonalActivity(String userName,String imagePath) {
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, PersonalActivity.class);
         startActivity(intent);

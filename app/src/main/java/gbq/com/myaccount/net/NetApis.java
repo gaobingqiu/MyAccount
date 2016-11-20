@@ -28,35 +28,48 @@ public class NetApis {
 	 */
 	public void login(final String account, final String password, final HttpListener listener) {
 		final HashMap<String, String> params = new HashMap<>();
-		params.put("username", account);
+		params.put("userName", account);
 		params.put("password", password);
-		RetrofitClient.executePost(NetConfig.LOGIN, params, listener);
+		RetrofitClient.getInstance().executePost(NetConfig.LOGIN, params, listener);
 	}
 
-	public void register(final String username, final String password,String tel,String code, final HttpListener listener) {
+	public void register(final String username, final String password, String tel, String code, final HttpListener listener) {
 		final HashMap<String, String> params = new HashMap<>();
+		params.put("userName", username);
 		params.put("password", password);
-		RetrofitClient.executePost(NetConfig.LOGIN, params, listener);
+		params.put("tel", tel);
+		params.put("code", code);
+		RetrofitClient.getInstance().executePost(NetConfig.REGISTER, params, listener);
 	}
 
-	public void quickRegister(final String username,String tel, final HttpListener listener) {
+	public void quickRegister(final String username, final HttpListener listener) {
 		final HashMap<String, String> params = new HashMap<>();
-		RetrofitClient.executePost(NetConfig.LOGIN, params, listener);
+		params.put("userName", username);
+		RetrofitClient.getInstance().executePost(NetConfig.QUICK_REGISTER, params, listener);
 	}
 
-	public void getCode(final String tel,HttpListener listener){
-
-	}
-
-	public void logout(final HttpListener listener) {
+	public void getCode(final String tel, HttpListener listener) {
 		final HashMap<String, String> params = new HashMap<>();
-		RetrofitClient.executePost(NetConfig.LOGOUT, params, listener);
+		params.put("tel", tel);
+		RetrofitClient.getInstance().executePost(NetConfig.GET_CODE, params, listener);
+	}
+
+	public void getUser(final String username, final HttpListener listener) {
+		final HashMap<String, String> params = new HashMap<>();
+		params.put("userName", username);
+		RetrofitClient.getInstance().executePost(NetConfig.GET_USER, params, listener);
+	}
+
+	public void logout(final String username,final HttpListener listener) {
+		final HashMap<String, String> params = new HashMap<>();
+		params.put("userName", username);
+		RetrofitClient.getInstance().executePost(NetConfig.LOGOUT, params, listener);
 	}
 
 	public void modifyPassword(String oldPassword, String newPassword, final HttpListener listener) {
 		final HashMap<String, String> params = new HashMap<>();
 		params.put("old_password", oldPassword);
 		params.put("new_password", newPassword);
-		RetrofitClient.executePost(NetConfig.MODIFY_PASSWORD, params, listener);
+		RetrofitClient.getInstance().executePost(NetConfig.MODIFY_PASSWORD, params, listener);
 	}
 }

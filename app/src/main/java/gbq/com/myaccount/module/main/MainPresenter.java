@@ -2,6 +2,9 @@ package gbq.com.myaccount.module.main;
 
 import android.text.TextUtils;
 
+import gbq.com.myaccount.Define;
+import gbq.com.myaccount.base.entity.User;
+import gbq.com.myaccount.base.util.JsonUtil;
 import gbq.com.myaccount.net.HttpListener;
 import gbq.com.myaccount.net.NetApis;
 
@@ -10,42 +13,39 @@ import gbq.com.myaccount.net.NetApis;
  */
 
 public class MainPresenter {
-    private IMainCtrl mainCtrl;
+    private IMainCtrl mCtrl;
 
     public MainPresenter(IMainCtrl mainCtrl){
-        this.mainCtrl = mainCtrl;
+        this.mCtrl = mainCtrl;
     }
 
     public void login(final String userName, final String password, final boolean isSave){
         if (TextUtils.isEmpty(userName)) {
-            mainCtrl.showToast("姓名不能为空");
+            mCtrl.showToast("姓名不能为空");
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            mainCtrl.showToast("密码不能为空");
+            mCtrl.showToast("密码不能为空");
             return;
         }
         NetApis.getInstance().login(userName, password, new HttpListener() {
             @Override
             public void onSuccess(String result) {
-                mainCtrl.toPersonalActivity();
+                User user = JsonUtil.createJsonBean(result,User.class);
+                mCtrl.toPersonalActivity(userName,user.getImage());
                 if (isSave) {
-                    mainCtrl.saveLoginInfo(userName,password);
+                    mCtrl.saveLoginInfo(userName,password);
                 }
             }
 
             @Override
             public void onFail() {
-                mainCtrl.toPersonalActivity();
-                if (isSave) {
-                    mainCtrl.saveLoginInfo(userName,password);
-                }
+                mCtrl.showToast(Define.ERROR_NET);
             }
 
             @Override
             public void onError(int errorCode, String errorMessage) {
-
-                mainCtrl.toPersonalActivity();
+                mCtrl.showToast(Define.ERROR_NET);
             }
         });
     }

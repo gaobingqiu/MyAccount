@@ -5,7 +5,8 @@ package gbq.com.myaccount.net;
  * Created by gbq on 2016-09-10.
  */
 public class NetConfig {
-	public final static String URL_REL = "192.168.0.101";
+	//	public final static String URL_REL = "192.168.0.101/";
+	public final static String URL_REL = "http://10.206.16.86:8080/";
 	//网络超时时间
 	public static final int DEFAULT_TIMEOUT = 10;
 	//网络连接池个数
@@ -19,7 +20,10 @@ public class NetConfig {
 	final static String LOGIN = "/loginInterface/login.do";
 	final static String LOGOUT = "/login/logout.do";
 	final static String QUICK_REGISTER = "/loginInterface/quickRegister.do";
-	final static String REGISTER = "/loginInterface/activity_register.do";
-	final static String GET_CODE = "/index/getCode.do";
+	final static String REGISTER = "/loginInterface/register.do";
+	final static String GET_CODE = "/loginInterface/getCode.do";
+
+	final static String GET_USER = "loginInterface/getUser.do";
 	final static String MODIFY_PASSWORD = "loginInterface/reset.do";
+
 }

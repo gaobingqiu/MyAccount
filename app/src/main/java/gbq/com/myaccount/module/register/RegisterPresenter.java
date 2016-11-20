@@ -3,6 +3,9 @@ package gbq.com.myaccount.module.register;
 import android.text.TextUtils;
 
 import gbq.com.myaccount.Define;
+import gbq.com.myaccount.base.entity.RegisterRequestVo;
+import gbq.com.myaccount.base.entity.RegisterResponseVo;
+import gbq.com.myaccount.base.util.JsonUtil;
 import gbq.com.myaccount.net.HttpListener;
 import gbq.com.myaccount.net.NetApis;
 
@@ -12,58 +15,57 @@ import gbq.com.myaccount.net.NetApis;
  */
 
 public class RegisterPresenter {
-	private IRegisterCtrl registerCtrl;
+	private IRegisterCtrl mCtrl;
 
 	RegisterPresenter(IRegisterCtrl registerCtrl) {
-		this.registerCtrl = registerCtrl;
+		this.mCtrl = registerCtrl;
 	}
 
 	void register(String userName, String password, String tel, String code, boolean isAgree) {
 		if (TextUtils.isEmpty(userName)) {
-			registerCtrl.showToast(Define.EMPTY_USERNAME);
+			mCtrl.showToast(Define.EMPTY_USERNAME);
 			return;
 		}
 		if (TextUtils.isEmpty(password)) {
-			registerCtrl.showToast(Define.EMPTY_PASSWORD);
+			mCtrl.showToast(Define.EMPTY_PASSWORD);
 			return;
 		}
 		if (TextUtils.isEmpty(tel)) {
-			registerCtrl.showToast(Define.EMPTY_TEL);
+			mCtrl.showToast(Define.EMPTY_TEL);
 			return;
 		}
 		if (TextUtils.isEmpty(code)) {
-			registerCtrl.showToast(Define.EMPTY_USERNAME);
+			mCtrl.showToast(Define.EMPTY_CODE);
 			return;
 		}
 		if (!isAgree) {
-			registerCtrl.showToast(Define.DIS_AGREE);
+			mCtrl.showToast(Define.DIS_AGREE);
 			return;
 		}
 		NetApis.getInstance().register(userName, password, tel, code, listener);
 	}
 
-	void quickRegister(String userName, boolean isAgree){
+	void quickRegister(String userName, boolean isAgree) {
 		if (TextUtils.isEmpty(userName)) {
-			registerCtrl.showToast(Define.EMPTY_USERNAME);
+			mCtrl.showToast(Define.EMPTY_USERNAME);
 			return;
 		}
 		if (!isAgree) {
-			registerCtrl.showToast(Define.DIS_AGREE);
+			mCtrl.showToast(Define.DIS_AGREE);
 			return;
 		}
-		String tel = "";
-		NetApis.getInstance().quickRegister(userName,tel,listener);
+		NetApis.getInstance().quickRegister(userName, listener);
 	}
 
-	void getCode(String tel){
+	void getCode(String tel) {
 		if (TextUtils.isEmpty(tel)) {
-			registerCtrl.showToast(Define.EMPTY_TEL);
+			mCtrl.showToast(Define.EMPTY_TEL);
 			return;
 		}
 		NetApis.getInstance().getCode(tel, new HttpListener() {
 			@Override
 			public void onSuccess(String result) {
-
+				mCtrl.showToast(result);
 			}
 
 			@Override
@@ -73,7 +75,7 @@ public class RegisterPresenter {
 
 			@Override
 			public void onError(int errorCode, String errorMessage) {
-
+				mCtrl.showToast(errorMessage);
 			}
 		});
 	}
@@ -81,7 +83,12 @@ public class RegisterPresenter {
 	private HttpListener listener = new HttpListener() {
 		@Override
 		public void onSuccess(String result) {
-			registerCtrl.toRegisterSuccessActivity("","");
+			try {
+				RegisterResponseVo responseVo = JsonUtil.createJsonBean(result, RegisterResponseVo.class);
+				mCtrl.toRegisterSuccessActivity(responseVo.getUserName(), responseVo.getPassword());
+			} catch (Exception e) {
+				mCtrl.toRegisterSuccessActivity(result, "");
+			}
 		}
 
 		@Override
@@ -91,7 +98,7 @@ public class RegisterPresenter {
 
 		@Override
 		public void onError(int errorCode, String errorMessage) {
-
+			mCtrl.showToast(errorMessage);
 		}
 	};
 }
