@@ -24,8 +24,7 @@ public class JsonUtil {
      */
     public static <T> T createJsonBean(String jsonString, Class<T> cls) {
         jsonString = jsonString.replace("\\", "");//去掉'/'
-        T t = gson.fromJson(jsonString,cls);
-        return t;
+        return gson.fromJson(jsonString,cls);
     }
 
     /**
@@ -34,9 +33,10 @@ public class JsonUtil {
      * @param cls
      * @return
      */
+    @SuppressWarnings("unused")
     public static <T> List<T> createJsonToListBean(String jsonString, Class<T> cls) {
         jsonString = jsonString.replace("\\", "");//去掉'/'
-        ArrayList<T> mList = new ArrayList<T>();
+        ArrayList<T> mList = new ArrayList<>();
         JsonArray array = new JsonParser().parse(jsonString).getAsJsonArray();
         for(final JsonElement elem : array){
             mList.add(gson.fromJson(elem,cls));

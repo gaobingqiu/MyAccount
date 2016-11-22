@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 /**
+ * 基本的Activity，主要包含一些Activity的公共方法
  * Created by gbq on 2016-11-15.
  */
 

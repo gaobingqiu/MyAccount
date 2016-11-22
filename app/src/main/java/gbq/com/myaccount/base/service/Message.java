@@ -14,7 +14,7 @@ import android.util.Log;
 import gbq.com.myaccount.R;
 
 public class Message extends Service {
-    private final String tag = "Service";
+    private final static String tag = "Service";
     Context context;
 
     @Override
@@ -40,7 +40,6 @@ public class Message extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        // TODO Auto-generated method stubm
         super.onStart(intent, startId);
         Log.d(tag, "开始服务");
         CreateInform();

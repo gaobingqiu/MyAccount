@@ -11,17 +11,15 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import gbq.com.myaccount.MainActivity;
 import gbq.com.myaccount.R;
 
 //开机自启动广播接受
 public class AutoStartService extends Service {
-	private final String tag = "Service";
+	private final static String tag = "Service";
 	Context context;
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -34,7 +32,6 @@ public class AutoStartService extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-		// TODO Auto-generated method stubm
 		super.onStart(intent, startId);
 		Log.d(tag, "开始服务");
 		CreateInform();
