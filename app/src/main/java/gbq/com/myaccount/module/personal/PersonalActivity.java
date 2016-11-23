@@ -4,19 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import gbq.com.myaccount.Define;
 import gbq.com.myaccount.MainActivity;
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.module.news.NewsActivity;
-import gbq.com.myaccount.module.photo.PhotoActivity;
 
 public class PersonalActivity extends BaseActivity implements View.OnClickListener, IPersonalCtrl {
 	private final static String tag = "PersonalActivity->";
@@ -39,30 +47,34 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 		mPresenter = new PersonalPresenter(this);
 	}
 
-	private void initDate(Bundle bundle) {
-		if (null != bundle) {
-			userName = bundle.getString("userName");
-			mPersonaNameTv.setText(userName);
-			String image = bundle.getString("imagePath");
-			showImage(image);
-		}
-	}
-
-	private void showImage(String image){
-
-	}
-
 	private void findIds() {
 		TextView textView = (TextView) findViewById(R.id.tv_to_news);
 		textView.setOnClickListener(this);
 
 		mPersonaNameTv = (TextView) findViewById(R.id.tv_username);
-		mPersonImageIv = (ImageView)findViewById(R.id.iv_user_img);
+		mPersonImageIv = (ImageView) findViewById(R.id.iv_user_img);
 		mPersonaNameTv.setOnClickListener(this);
 
 		Button button = (Button) findViewById(R.id.bt_user_out);
 		button.setOnClickListener(this);
+	}
 
+	private void initDate(Bundle bundle) {
+		if (null != bundle) {
+			userName = bundle.getString("userName");
+			mPersonaNameTv.setText(userName);
+			String imagePath = bundle.getString("imagePath");
+			loadHeadImage(imagePath);
+		}
+	}
+
+	/**
+	 * 加载网络图片
+	 *
+	 * @param imagePath 网络图片地址
+	 */
+	private void loadHeadImage(String imagePath) {
+		Glide.with(this).load(imagePath).into(mPersonImageIv);
 	}
 
 	private void initRecycleView() {
@@ -87,7 +99,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 	}
 
 	@Override
-	public void clearLoginInfo(){
+	public void clearLoginInfo() {
 		// 获取SharedPreferences对象
 		SharedPreferences sharedPre = this.getSharedPreferences("config", Context.MODE_PRIVATE);
 		// 获取Editor对象
@@ -102,15 +114,74 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 	public void toNewsActivity() {
 		Intent intent = new Intent();
 		intent.setClass(PersonalActivity.this, NewsActivity.class);
+		intent.putExtra("userName", userName);
 		startActivity(intent);
 	}
 
 	@Override
 	public void changeImg() {
-		Intent intent = new Intent();
-		intent.setClass(PersonalActivity.this, PhotoActivity.class);
-		startActivity(intent);
+		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.show();
+		Window win = alertDialog.getWindow();
+		WindowManager.LayoutParams lp = win.getAttributes();
+		win.setGravity(Gravity.LEFT | Gravity.BOTTOM);
+		lp.alpha = 0.7f;
+		win.setAttributes(lp);
+		win.setContentView(R.layout.dialog);
+		Button cancelBtn = (Button) win.findViewById(R.id.camera_cancel);
+		cancelBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				alertDialog.cancel();
+			}
+		});
+		Button camera_phone = (Button) win.findViewById(R.id.camera_phone);
+		camera_phone.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				systemPhoto();
+			}
+
+		});
+		Button camera_camera = (Button) win.findViewById(R.id.camera_camera);
+		camera_camera.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				cameraPhoto();
+			}
+
+		});
 	}
+
+	private final static int SYS_INTENT_REQUEST = 0XFF01;
+	private final static int CAMERA_INTENT_REQUEST = 0XFF02;
+
+	/**
+	 * 打开系统相册
+	 */
+	private void systemPhoto() {
+
+		Intent intent = new Intent();
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(intent, SYS_INTENT_REQUEST);
+
+	}
+
+	/**
+	 * 调用相机拍照
+	 */
+	private void cameraPhoto() {
+		String sdStatus = Environment.getExternalStorageState();
+		/* 检测sd是否可用 */
+		if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
+			showToast(Define.DISABLE_SD);
+			return;
+		}
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		startActivityForResult(intent, CAMERA_INTENT_REQUEST);
+	}
+
 
 	@Override
 	public void onClick(View view) {

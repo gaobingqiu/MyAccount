@@ -1,14 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/id_switch_tab_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
         android:baselineAligned="false"
+        android:orientation="horizontal"
         >
 
         <LinearLayout
@@ -19,17 +20,16 @@
             android:background="@drawable/guide_round_selector"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dip" >
+            android:padding="10dip">
 
             <TextView
-                android:id="@+id/id_chat_tv"
+                android:id="@+id/tv_news_global"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/global"
                 android:textColor="#0000FF"
-                android:textSize="15sp" 
-                android:onClick="toGlobal"/>
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -42,17 +42,16 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dip"
-            android:saveEnabled="false" >
+            android:saveEnabled="false">
 
             <TextView
-                android:id="@+id/id_friend_tv"
+                android:id="@+id/tv_news_sports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/pe_news"
                 android:textColor="#000000"
-                android:textSize="15sp"
-                android:onClick="toPE" />
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,17 +63,16 @@
             android:focusable="false"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dip" >
+            android:padding="10dip">
 
             <TextView
-                android:id="@+id/id_contacts_tv"
+                android:id="@+id/tv_news_science"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/te_news"
                 android:textColor="#000000"
-                android:textSize="15sp"
-                android:onClick="toTe" />
+                android:textSize="15sp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -82,13 +80,13 @@
         android:id="@+id/id_tab_line_iv"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:contentDescription="tab"
-        android:background="@mipmap/tab_selected_pressed_holo" >
+        android:background="@mipmap/tab_selected_pressed_holo"
+        android:contentDescription="@string/tab">
     </ImageView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000" />
+        android:background="#000000"/>
 
 </LinearLayout>

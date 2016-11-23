@@ -70,5 +70,6 @@
 
     <string name="password">密码</string>
     <string name="tel">手机号码</string>
+    <string name="tab">tab</string>
 
 </resources>
