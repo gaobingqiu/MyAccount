@@ -19,18 +19,18 @@ public class NetConfig {
 
 	private static String IMGAGE_LOCATION = "";
 
-	final static String LOGIN = "/loginInterface/login.do";
-	final static String LOGOUT = "/login/logout.do";
-	final static String QUICK_REGISTER = "/loginInterface/quickRegister.do";
-	final static String REGISTER = "/loginInterface/register.do";
-	final static String GET_CODE = "/loginInterface/getCode.do";
+	final static String LOGIN = "loginInterface/login.do";
+	final static String LOGOUT = "login/logout.do";
+	final static String QUICK_REGISTER = "loginInterface/quickRegister.do";
+	final static String REGISTER = "loginInterface/register.do";
+	final static String GET_CODE = "loginInterface/getCode.do";
 
 
 	final static String GET_USER = "loginInterface/getUser.do";
 	final static String MODIFY_PASSWORD = "loginInterface/reset.do";
 
-	public static String NEWS_URL = "/NewsInterface/getGlobalNews.do";
-	public final static String NEWS_GLOBAL = "/NewsInterface/getGlobalNews.do";
-	public final static String NEWS_SPORTS = "/NewsInterface/getPElNews.do";
-	public final static String NEWS_SCIENCE = "/NewsInterface/getTeNews.do";
+	public static String NEWS_URL = "newsInterface/getGlobalNews.do";
+	public final static String NEWS_GLOBAL = "newsInterface/getGlobalNews.do";
+	public final static String NEWS_SPORTS = "newsInterface/getPElNews.do";
+	public final static String NEWS_SCIENCE = "newsInterface/getTeNews.do";
 }

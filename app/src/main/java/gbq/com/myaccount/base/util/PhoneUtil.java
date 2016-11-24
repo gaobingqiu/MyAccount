@@ -9,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PhoneUtil {
 
@@ -36,6 +38,11 @@ public class PhoneUtil {
 
 	public static String getTimeMillis(){
 		return String.valueOf(System.currentTimeMillis());
+	}
+
+	public static String getCurrentTime(){
+		DateFormat df = DateFormat.getTimeInstance(); //设置日期格式
+		return df.format(new Date());
 	}
 
 	public static void savePhotoToSDCard(Bitmap photoBitmap, String path, String photoName) {

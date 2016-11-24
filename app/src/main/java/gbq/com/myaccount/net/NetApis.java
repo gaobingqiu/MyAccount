@@ -72,4 +72,9 @@ public class NetApis {
 		params.put("new_password", newPassword);
 		RetrofitClient.getInstance().executePost(NetConfig.MODIFY_PASSWORD, params, listener);
 	}
+
+	public void getNews(final HttpListener listener) {
+		final HashMap<String, String> params = new HashMap<>();
+		RetrofitClient.getInstance().executePost(NetConfig.NEWS_URL, params, listener);
+	}
 }
