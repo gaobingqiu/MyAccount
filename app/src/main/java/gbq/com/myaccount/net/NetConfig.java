@@ -29,8 +29,4 @@ public class NetConfig {
 	final static String GET_USER = "loginInterface/getUser.do";
 	final static String MODIFY_PASSWORD = "loginInterface/reset.do";
 
-	public static String NEWS_URL = "newsInterface/getGlobalNews.do";
-	public final static String NEWS_GLOBAL = "newsInterface/getGlobalNews.do";
-	public final static String NEWS_SPORTS = "newsInterface/getPElNews.do";
-	public final static String NEWS_SCIENCE = "newsInterface/getTeNews.do";
 }

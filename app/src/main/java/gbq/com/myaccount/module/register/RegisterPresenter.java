@@ -3,9 +3,11 @@ package gbq.com.myaccount.module.register;
 import android.text.TextUtils;
 
 import gbq.com.myaccount.Define;
-import gbq.com.myaccount.base.util.JsonUtil;
-import gbq.com.myaccount.net.HttpListener;
-import gbq.com.myaccount.net.NetApis;
+import gbq.com.myaccount.net.BaseResponse;
+import gbq.com.myaccount.net.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 注册的支持者
@@ -40,7 +42,7 @@ public class RegisterPresenter {
 			mCtrl.showToast(Define.DIS_AGREE);
 			return;
 		}
-		NetApis.getInstance().register(userName, password, tel, code, listener);
+		RetrofitClient.getInstance().register(userName, password, tel, code, callback);
 	}
 
 	void quickRegister(String userName, boolean isAgree) {
@@ -52,7 +54,7 @@ public class RegisterPresenter {
 			mCtrl.showToast(Define.DIS_AGREE);
 			return;
 		}
-		NetApis.getInstance().quickRegister(userName, listener);
+		RetrofitClient.getInstance().quickRegister(userName, callback);
 	}
 
 	void getCode(String tel) {
@@ -60,43 +62,69 @@ public class RegisterPresenter {
 			mCtrl.showToast(Define.EMPTY_TEL);
 			return;
 		}
-		NetApis.getInstance().getCode(tel, new HttpListener() {
+		RetrofitClient.getInstance().getCode(tel, new Callback<BaseResponse<String>>() {
 			@Override
-			public void onSuccess(String result) {
-				mCtrl.showToast(result);
+			public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+				if (response.isSuccess()) {
+					BaseResponse<String> baseResponse = response.body();
+					if (baseResponse.isOk()) {
+						mCtrl.showToast(baseResponse.getData());
+					} else {
+						mCtrl.showToast(baseResponse.getMsg());
+					}
+				} else {
+					mCtrl.showToast(Define.ERROR_NET);
+				}
 			}
 
 			@Override
-			public void onFail() {
-
-			}
-
-			@Override
-			public void onError(int errorCode, String errorMessage) {
-				mCtrl.showToast(errorMessage);
+			public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+				mCtrl.showToast(Define.ERROR_NET);
 			}
 		});
 	}
 
-	private HttpListener listener = new HttpListener() {
+	private Callback<BaseResponse<RegisterResponseVo>> callback = new Callback<BaseResponse<RegisterResponseVo>>() {
 		@Override
-		public void onSuccess(String result) {
-			try {
-				RegisterResponseVo responseVo = JsonUtil.createJsonBean(result, RegisterResponseVo.class);
-				mCtrl.toRegisterSuccessActivity(responseVo.getUserName(), responseVo.getPassword());
-			} catch (Exception e) {
-				mCtrl.toRegisterSuccessActivity(result, "");
+		public void onResponse(Call<BaseResponse<RegisterResponseVo>> call, Response<BaseResponse<RegisterResponseVo>> response) {
+			if (response.isSuccess()) {
+				BaseResponse<RegisterResponseVo> baseResponse = response.body();
+				if (baseResponse.isOk()) {
+					RegisterResponseVo responseVo = baseResponse.getData();
+					mCtrl.toRegisterSuccessActivity(responseVo.getUserName(), responseVo.getPassword());
+				} else {
+					mCtrl.showToast(baseResponse.getMsg());
+				}
+			} else {
+				mCtrl.showToast(Define.ERROR_NET);
 			}
 		}
 
 		@Override
-		public void onFail() {
-
-		}
-
-		@Override
-		public void onError(int errorCode, String errorMessage) {
-			mCtrl.showToast(errorMessage);
+		public void onFailure(Call<BaseResponse<RegisterResponseVo>> call, Throwable t) {
+			mCtrl.showToast(Define.ERROR_NET);
 		}
 	};
+
+//	private HttpListener listener = new HttpListener() {
+//		@Override
+//		public void onSuccess(String result) {
+//			try {
+//				RegisterResponseVo responseVo = JsonUtil.createJsonBean(result, RegisterResponseVo.class);
+//				mCtrl.toRegisterSuccessActivity(responseVo.getUserName(), responseVo.getPassword());
+//			} catch (Exception e) {
+//				mCtrl.toRegisterSuccessActivity(result, "");
+//			}
+//		}
+//
+//		@Override
+//		public void onFail() {
+//
+//		}
+//
+//		@Override
+//		public void onError(int errorCode, String errorMessage) {
+//			mCtrl.showToast(errorMessage);
+//		}
+//	};
 }

@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/tv_news_time"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:gravity="center_horizontal"
                 android:textColor="#B5B5B5"

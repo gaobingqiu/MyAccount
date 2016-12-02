@@ -1,14 +1,14 @@
 package gbq.com.myaccount.module.news;
 
-import android.text.TextUtils;
-
 import java.util.List;
 
 import gbq.com.myaccount.Define;
-import gbq.com.myaccount.base.util.JsonUtil;
 import gbq.com.myaccount.module.news.entity.News;
-import gbq.com.myaccount.net.HttpListener;
-import gbq.com.myaccount.net.NetApis;
+import gbq.com.myaccount.net.BaseResponse;
+import gbq.com.myaccount.net.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 新闻的支持者
@@ -22,22 +22,25 @@ class NewsPresenter {
 		mCtrl = ctrl;
 	}
 
-	void loadNews() {
-		NetApis.getInstance().getNews(new HttpListener() {
+	void loadNews(String Type, int pageIndex) {
+		RetrofitClient.getInstance().getNews(Type, pageIndex, new Callback<BaseResponse<List<News>>>() {
 			@Override
-			public void onSuccess(String result) {
-				List<News> newsList = JsonUtil.createJsonToListBean(result,News.class);
-				mCtrl.setNewsList(newsList);
+			public void onResponse(Call<BaseResponse<List<News>>> call, Response<BaseResponse<List<News>>> response) {
+				if (response.isSuccess()) {
+					BaseResponse<List<News>> baseResponse = response.body();
+					if (baseResponse.isOk()) {
+						mCtrl.setNewsList(baseResponse.getData());
+					} else {
+						mCtrl.showToast(baseResponse.getMsg());
+					}
+				} else {
+					mCtrl.showToast(Define.ERROR_NET);
+				}
 			}
 
 			@Override
-			public void onFail() {
+			public void onFailure(Call<BaseResponse<List<News>>> call, Throwable t) {
 				mCtrl.showToast(Define.ERROR_NET);
-			}
-
-			@Override
-			public void onError(int errorCode, String errorMessage) {
-				mCtrl.showToast(errorMessage);
 			}
 		});
 	}

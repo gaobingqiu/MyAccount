@@ -3,11 +3,12 @@ package gbq.com.myaccount.net;
 import android.util.Log;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import gbq.com.myaccount.base.util.JsonUtil;
-import gbq.com.myaccount.base.util.PhoneUtil;
+import gbq.com.myaccount.module.main.User;
+import gbq.com.myaccount.module.news.entity.News;
+import gbq.com.myaccount.module.register.RegisterResponseVo;
 import okhttp3.ConnectionPool;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -25,13 +26,13 @@ import static gbq.com.myaccount.net.NetConfig.DEFAULT_TIMEOUT;
  * 网络请求
  * Created by gbq on 2016-10-4.
  */
-class RetrofitClient {
+public class RetrofitClient {
 
 	private static RetrofitClient mInstance;
 
-	static RetrofitClient getInstance() {
+	public static RetrofitClient getInstance() {
 		if (null == mInstance) {
-			synchronized (NetApis.class) {
+			synchronized (RetrofitClient.class) {
 				mInstance = new RetrofitClient();
 			}
 		}
@@ -57,24 +58,72 @@ class RetrofitClient {
 
 	/**
 	 * post请求
-	 *
-	 * @param map
-	 * @param listener
 	 */
-	void executePost(String url, HashMap<String, String> map, final HttpListener listener) {
-		Call<BaseResponse> baseCall = retrofitClientService.executePost(url, map);
-		map.put("token", PhoneUtil.getMac());
-		retrofitClientListener = listener;
-		Log.d("RetrofitClient", "requestParamsMap = " + map.toString());
-		Log.d("RetrofitClient", "url = " + NetConfig.URL_REL + url);
-		//noinspection unchecked
-		baseCall.enqueue(callback);
+	public void userLogin(String userName, String password, Callback<BaseResponse<User>> call) {
+		Call<BaseResponse<User>> baseCall = retrofitClientService.userLogin(userName, password);
+		baseCall.enqueue(call);
 	}
 
-	void uploadImg(String url,final HttpListener listener){
+	/**
+	 * post请求
+	 */
+	public void register(final String username, final String password, String tel, String code, Callback<BaseResponse<RegisterResponseVo>> call) {
+		Call<BaseResponse<RegisterResponseVo>> baseCall = retrofitClientService.register(username, password, tel, code);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void quickRegister(String userName, Callback<BaseResponse<RegisterResponseVo>> call) {
+		Call<BaseResponse<RegisterResponseVo>> baseCall = retrofitClientService.quickRegister(userName);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void getUser(String userName, Callback<BaseResponse<User>> call) {
+		Call<BaseResponse<User>> baseCall = retrofitClientService.getUser(userName);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void getCode(String tel, Callback<BaseResponse<String>> call) {
+		Call<BaseResponse<String>> baseCall = retrofitClientService.getCode(tel);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void logout(String userName, Callback<BaseResponse<String>> call) {
+		Call<BaseResponse<String>> baseCall = retrofitClientService.logout(userName);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void modifyPassword(String userName, String oldPassword, String newPassword, Callback<BaseResponse<User>> call) {
+		Call<BaseResponse<User>> baseCall = retrofitClientService.reset(userName, oldPassword, newPassword);
+		baseCall.enqueue(call);
+	}
+
+	/**
+	 * post请求
+	 */
+	public void getNews(String type, int pageIndex, Callback<BaseResponse<List<News>>> call) {
+		Call<BaseResponse<List<News>>> baseCall = retrofitClientService.getNews(type, pageIndex);
+		baseCall.enqueue(call);
+	}
+
+	void uploadImg(String url, final HttpListener listener) {
 		File file = new File("/storage/emulated/0/sc/share.png");
 		RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-		Call<String> call = retrofitClientService.uploadImage(url,url,requestBody);
+		Call<String> call = retrofitClientService.uploadImage(url, url, requestBody);
 		call.enqueue(new Callback<String>() {
 			@Override
 			public void onResponse(Call<String> call, Response<String> response) {
@@ -88,37 +137,4 @@ class RetrofitClient {
 			}
 		});
 	}
-
-	private HttpListener retrofitClientListener;
-	//返回的处理
-	private Callback<BaseResponse> callback = new Callback<BaseResponse>() {
-		@Override
-		public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-			if (response.isSuccess()) {
-				BaseResponse baseResponse = response.body();
-				if (baseResponse.isOk()) {
-					try {
-						String result = JsonUtil.createJsonString(baseResponse.getData());
-						retrofitClientListener.onSuccess(result);
-						Log.d("RetrofitClient", "isSuccess=" + baseResponse.getCode() + result);
-					} catch (Exception e) {
-						retrofitClientListener.onFail();
-					}
-				} else {
-					String errorMessage = NetErrorCode.getErrmsg(baseResponse.getCode());
-					Log.d("RetrofitClient", "onError=" + baseResponse.getCode() + errorMessage);
-					retrofitClientListener.onError(baseResponse.getCode(), errorMessage);
-				}
-			} else {
-				retrofitClientListener.onFail();
-			}
-		}
-
-		@Override
-		public void onFailure(Call<BaseResponse> call, Throwable t) {
-			Log.d("RetrofitClient", "onFailure=" + "Net failure!");
-			retrofitClientListener.onFail();
-		}
-
-	};
 }

@@ -98,6 +98,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 			titleTv = (TextView) itemView.findViewById(R.id.tv_news_title);
 			timeTv = (TextView) itemView.findViewById(R.id.tv_news_time);
 			urlTv = (TextView) itemView.findViewById(R.id.tv_news_url);
+			urlTv.setVisibility(View.GONE);
 			descriptionTv = (TextView) itemView.findViewById(R.id.tv_news_description);
 			imageView = (AppCompatImageView) itemView.findViewById(R.id.iv_news_image);
 		}
