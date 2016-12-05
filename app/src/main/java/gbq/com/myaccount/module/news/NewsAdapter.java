@@ -1,14 +1,18 @@
 package gbq.com.myaccount.module.news;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
@@ -36,9 +40,9 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 	 *
 	 * @param mList
 	 */
-	public void setList(List<News> mList) {
+	void setList(List<News> mList) {
 		this.mList = mList;
-		this.notifyDataSetChanged();
+		this.notifyItemRangeChanged(0, mList.size());
 	}
 
 	@Override
@@ -48,7 +52,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 	}
 
 	@Override
-	public void onBindViewHolder(NewsAdapter.ViewHolder holder, int position) {
+	public void onBindViewHolder(final NewsAdapter.ViewHolder holder, int position) {
 		final News news = mList.get(position);
 		holder.titleTv.setText(news.getTitle());
 		holder.titleTv.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +76,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 				listener.OnRecyclerItemClick(news.getUrl());
 			}
 		});
-		Glide.with(mContext).load(news.getPicUrl()).into(holder.imageView);
+
+		Glide.with(mContext).load(mList.get(position).getPicUrl()).error(R.mipmap.default_img).into(holder.imageView);
 		holder.imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

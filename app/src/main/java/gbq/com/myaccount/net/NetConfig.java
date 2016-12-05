@@ -19,14 +19,4 @@ public class NetConfig {
 
 	private static String IMGAGE_LOCATION = "";
 
-	final static String LOGIN = "loginInterface/login.do";
-	final static String LOGOUT = "login/logout.do";
-	final static String QUICK_REGISTER = "loginInterface/quickRegister.do";
-	final static String REGISTER = "loginInterface/register.do";
-	final static String GET_CODE = "loginInterface/getCode.do";
-
-
-	final static String GET_USER = "loginInterface/getUser.do";
-	final static String MODIFY_PASSWORD = "loginInterface/reset.do";
-
 }

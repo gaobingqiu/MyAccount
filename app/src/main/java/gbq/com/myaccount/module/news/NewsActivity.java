@@ -18,8 +18,11 @@ import gbq.com.myaccount.module.news.entity.News;
  */
 public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClickListener, NewsAdapter.OnRecyclerItemClickListener {
 	private NewsPresenter mPresenter;
-
 	private NewsAdapter mAdapter;
+
+	private static int count_global = 1;
+	private static int count_science = 1;
+	private static int count_sport = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 		//这个东西在显示后才会加载，不会像ScollView一样一次性加载导致内存溢出
 		LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 		recyclerView.setLayoutManager(layoutManager);
-		mPresenter.loadNews(Define.NEWS_GLOBAL, 0);
+		mPresenter.loadNews(Define.NEWS_GLOBAL, 1);
 	}
 
 	@Override
@@ -57,18 +60,22 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 		String type = "";
 		switch (view.getId()) {
 			case R.id.tv_news_global:
+
 				type = Define.NEWS_GLOBAL;
+				mPresenter.loadNews(type, ++count_global);
 				break;
 			case R.id.tv_news_sports:
 				type = Define.NEWS_SPORT;
+				mPresenter.loadNews(type, ++count_sport);
 				break;
 			case R.id.tv_news_science:
 				type = Define.NEWS_SCIENCE;
+				mPresenter.loadNews(type, ++count_science);
 				break;
 			default:
 				break;
 		}
-		mPresenter.loadNews(type, 0);
+
 	}
 
 	@Override
