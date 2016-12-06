@@ -5,6 +5,7 @@ package gbq.com.myaccount.net;
  * Created by gbq on 2016-09-10.
  */
 public class NetConfig {
+	//gitHug ip地址：204.232.175.78   github.global.ssl.fastly.net
 	//	public final static String URL_REL = "192.168.0.101/";
 	public final static String URL_REL = "http://10.206.16.86:8080/";
 	//网络超时时间
