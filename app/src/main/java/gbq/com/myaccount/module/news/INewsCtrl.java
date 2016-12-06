@@ -12,4 +12,5 @@ import gbq.com.myaccount.module.news.entity.News;
 interface INewsCtrl extends IBaseCtrl{
 
 	void setNewsList(List<News> newsList);
+	void setMarginAndColor(int marginLeft);
 }

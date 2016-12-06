@@ -1,16 +1,22 @@
 package gbq.com.myaccount.module.news;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
 import gbq.com.myaccount.Define;
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.base.BaseActivity;
+import gbq.com.myaccount.base.util.BaseUtil;
 import gbq.com.myaccount.module.news.entity.News;
 import gbq.com.myaccount.module.news.web.NewsDetailActivity;
 
@@ -22,6 +28,8 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 	private NewsPresenter mPresenter;
 	private NewsAdapter mAdapter;
 
+	@BindView(R.id.iv_tab_line)
+	private ImageView mTabLineIv;
 	private static int count_global = 1;
 	private static int count_science = 1;
 	private static int count_sport = 1;
@@ -78,6 +86,35 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 				break;
 		}
 
+	}
+
+	@Override
+	public void setMarginAndColor(int marginLeft) {
+		TextView globalTv = (TextView) findViewById(R.id.tv_news_global);
+		TextView sportsTv = (TextView) findViewById(R.id.tv_news_sports);
+		TextView scienceTv = (TextView) findViewById(R.id.tv_news_science);
+		switch (marginLeft) {
+			case 0:
+				globalTv.setTextColor(Color.parseColor("#0000FF"));
+				sportsTv.setTextColor(Color.parseColor("#000000"));
+				scienceTv.setTextColor(Color.parseColor("#000000"));
+				break;
+			case 120:
+				globalTv.setTextColor(Color.parseColor("#000000"));
+				sportsTv.setTextColor(Color.parseColor("#0000FF"));
+				scienceTv.setTextColor(Color.parseColor("#000000"));
+				break;
+			case 240:
+				globalTv.setTextColor(Color.parseColor("#000000"));
+				sportsTv.setTextColor(Color.parseColor("#000000"));
+				scienceTv.setTextColor(Color.parseColor("#0000FF"));
+				break;
+			default:
+				break;
+		}
+		mTabLineIv = (ImageView) findViewById(R.id.iv_tab_line);
+		ViewGroup.LayoutParams layoutParams = BaseUtil.setViewMargin(mTabLineIv, true, marginLeft, 0, 0, 0);
+		mTabLineIv.setLayoutParams(layoutParams);
 	}
 
 	@Override

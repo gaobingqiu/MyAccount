@@ -25,9 +25,22 @@ class NewsPresenter {
 		mCtrl = ctrl;
 	}
 
-	void loadNews(String Type, int pageIndex) {
+	void loadNews(String type, int pageIndex) {
 		mCtrl.showProcess();
-		RetrofitClient.getInstance().getNews(Type, pageIndex, new Callback<BaseResponse<List<News>>>() {
+		switch (type){
+			case Define.NEWS_GLOBAL:
+				mCtrl.setMarginAndColor(0);
+				break;
+			case Define.NEWS_SPORT:
+				mCtrl.setMarginAndColor(120);
+				break;
+			case Define.NEWS_SCIENCE:
+				mCtrl.setMarginAndColor(240);
+				break;
+			default:
+				break;
+		}
+		RetrofitClient.getInstance().getNews(type, pageIndex, new Callback<BaseResponse<List<News>>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<List<News>>> call, Response<BaseResponse<List<News>>> response) {
 				if (response.isSuccess()) {
