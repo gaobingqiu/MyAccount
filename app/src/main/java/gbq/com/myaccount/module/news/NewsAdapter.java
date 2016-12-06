@@ -116,7 +116,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 		void OnRecyclerItemClick(String url);
 	}
 
-	public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
+	void setOnRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
 		this.listener = listener;
 	}
 }

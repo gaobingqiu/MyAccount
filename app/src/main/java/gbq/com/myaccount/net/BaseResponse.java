@@ -1,8 +1,6 @@
 package gbq.com.myaccount.net;
 
 
-import com.google.gson.JsonObject;
-
 /**
  * 网络返回基类 支持泛型
  * Created by gbq

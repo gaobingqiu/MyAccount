@@ -1,5 +1,6 @@
 package gbq.com.myaccount.module.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import gbq.com.myaccount.Define;
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.module.news.entity.News;
+import gbq.com.myaccount.module.news.web.NewsDetailActivity;
 
 /**
  * 新闻资讯
@@ -42,6 +44,7 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 	private void setRecyclerView() {
 		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_news);
 		mAdapter = new NewsAdapter(this, null);
+		mAdapter.setOnRecyclerItemClickListener(this);
 		recyclerView.setAdapter(mAdapter);
 		//最后一个参数是反转布局一定是false,为true的时候为逆向显示，在聊天记录中可能会有使用
 		//这个东西在显示后才会加载，不会像ScollView一样一次性加载导致内存溢出
@@ -57,10 +60,9 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 
 	@Override
 	public void onClick(View view) {
-		String type = "";
+		String type;
 		switch (view.getId()) {
 			case R.id.tv_news_global:
-
 				type = Define.NEWS_GLOBAL;
 				mPresenter.loadNews(type, ++count_global);
 				break;
@@ -80,6 +82,9 @@ public class NewsActivity extends BaseActivity implements INewsCtrl, View.OnClic
 
 	@Override
 	public void OnRecyclerItemClick(String url) {
-		mAdapter.setList(null);
+		Intent intent = new Intent();
+		intent.setClass(NewsActivity.this, NewsDetailActivity.class);
+		intent.putExtra("url", url);
+		startActivity(intent);
 	}
 }
