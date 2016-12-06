@@ -19,6 +19,7 @@ public class PersonalPresenter {
 	}
 
 	void userLogout(String userName) {
+		mCtrl.showProcess();
 		RetrofitClient.getInstance().logout(userName, new Callback<BaseResponse<String>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -33,11 +34,13 @@ public class PersonalPresenter {
 				} else {
 					mCtrl.showToast(Define.ERROR_NET);
 				}
+				mCtrl.closeProcess();
 			}
 
 			@Override
 			public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
 				mCtrl.showToast(Define.ERROR_NET);
+				mCtrl.closeProcess();
 			}
 		});
 	}

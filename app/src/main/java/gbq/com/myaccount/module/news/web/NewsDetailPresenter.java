@@ -19,7 +19,6 @@ import android.webkit.WebViewClient;
  */
 
 class NewsDetailPresenter {
-	@SuppressWarnings({"FieldCanBeLocal", "unused"})
 	private INewsDetailCtrl mCtrl;
 	private WebView mWebView;
 
@@ -28,6 +27,7 @@ class NewsDetailPresenter {
 	}
 
 	void initWebView(final WebView webView, String url) {
+		mCtrl.showProcess();
 		mWebView = webView;
 		webView.loadUrl(url);
 		webView.setWebViewClient(new WebViewClient() {
@@ -73,6 +73,7 @@ class NewsDetailPresenter {
 				return false;
 			}
 		});
+		mCtrl.closeProcess();
 	}
 
 	private Handler handler = new Handler() {

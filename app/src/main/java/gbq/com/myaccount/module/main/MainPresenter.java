@@ -10,6 +10,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 登录的支持者
  * Created by gbq on 2016-11-12.
  */
 
@@ -21,6 +22,7 @@ public class MainPresenter {
 	}
 
 	public void login(final String userName, final String password, final boolean isSave) {
+		mCtrl.showProcess();
 		if (TextUtils.isEmpty(userName)) {
 			mCtrl.showToast("姓名不能为空");
 			return;
@@ -37,7 +39,6 @@ public class MainPresenter {
 					if (baseResponse.isOk()) {
 						User user = baseResponse.getData();
 						mCtrl.toPersonalActivity(userName, user.getImage());
-						mCtrl.toPersonalActivity(userName, user.getImage());
 						if (isSave) {
 							mCtrl.saveLoginInfo(userName, password);
 						}
@@ -47,11 +48,13 @@ public class MainPresenter {
 				} else {
 					mCtrl.showToast(Define.ERROR_NET);
 				}
+				mCtrl.closeProcess();
 			}
 
 			@Override
 			public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
 				mCtrl.showToast(Define.ERROR_NET);
+				mCtrl.closeProcess();
 			}
 		});
 	}

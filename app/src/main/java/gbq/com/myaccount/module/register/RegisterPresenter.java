@@ -22,6 +22,7 @@ public class RegisterPresenter {
 	}
 
 	void register(String userName, String password, String tel, String code, boolean isAgree) {
+		mCtrl.showProcess();
 		if (TextUtils.isEmpty(userName)) {
 			mCtrl.showToast(Define.EMPTY_USERNAME);
 			return;
@@ -46,6 +47,7 @@ public class RegisterPresenter {
 	}
 
 	void quickRegister(String userName, boolean isAgree) {
+		mCtrl.showProcess();
 		if (TextUtils.isEmpty(userName)) {
 			mCtrl.showToast(Define.EMPTY_USERNAME);
 			return;
@@ -58,6 +60,7 @@ public class RegisterPresenter {
 	}
 
 	void getCode(String tel) {
+		mCtrl.showProcess();
 		if (TextUtils.isEmpty(tel)) {
 			mCtrl.showToast(Define.EMPTY_TEL);
 			return;
@@ -75,11 +78,13 @@ public class RegisterPresenter {
 				} else {
 					mCtrl.showToast(Define.ERROR_NET);
 				}
+				mCtrl.closeProcess();
 			}
 
 			@Override
 			public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
 				mCtrl.showToast(Define.ERROR_NET);
+				mCtrl.closeProcess();
 			}
 		});
 	}
@@ -98,11 +103,13 @@ public class RegisterPresenter {
 			} else {
 				mCtrl.showToast(Define.ERROR_NET);
 			}
+			mCtrl.closeProcess();
 		}
 
 		@Override
 		public void onFailure(Call<BaseResponse<RegisterResponseVo>> call, Throwable t) {
 			mCtrl.showToast(Define.ERROR_NET);
+			mCtrl.closeProcess();
 		}
 	};
 

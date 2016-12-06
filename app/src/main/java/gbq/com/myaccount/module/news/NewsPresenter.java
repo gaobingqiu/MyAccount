@@ -26,6 +26,7 @@ class NewsPresenter {
 	}
 
 	void loadNews(String Type, int pageIndex) {
+		mCtrl.showProcess();
 		RetrofitClient.getInstance().getNews(Type, pageIndex, new Callback<BaseResponse<List<News>>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<List<News>>> call, Response<BaseResponse<List<News>>> response) {
@@ -40,11 +41,13 @@ class NewsPresenter {
 				} else {
 					mCtrl.showToast(Define.ERROR_NET);
 				}
+				mCtrl.closeProcess();
 			}
 
 			@Override
 			public void onFailure(Call<BaseResponse<List<News>>> call, Throwable t) {
 				mCtrl.showToast(Define.ERROR_NET);
+				mCtrl.closeProcess();
 			}
 		});
 	}

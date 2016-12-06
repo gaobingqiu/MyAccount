@@ -9,4 +9,8 @@ public interface IBaseCtrl {
 	void showToast(String msg);
 
 	void showAlert(String msg);
+
+	void showProcess();
+
+	void closeProcess();
 }
