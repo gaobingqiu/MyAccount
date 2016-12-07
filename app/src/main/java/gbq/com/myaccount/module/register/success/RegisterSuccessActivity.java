@@ -1,6 +1,5 @@
 package gbq.com.myaccount.module.register.success;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import gbq.com.myaccount.module.personal.PersonalActivity;
 public class RegisterSuccessActivity extends BaseActivity implements View.OnClickListener,IRegisterSuccessCtrl {
     private TextView userNameView, passwordView;
     private LinearLayout quickPartView;
-    private final static String tag = "RegisterSuccessActivity->";
 
     private String userName = "";
 

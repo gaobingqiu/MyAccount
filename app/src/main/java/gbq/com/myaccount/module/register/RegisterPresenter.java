@@ -17,7 +17,7 @@ import retrofit2.Response;
  * Created by gbq on 2016-11-12.
  */
 
-public class RegisterPresenter {
+class RegisterPresenter {
 	private IRegisterCtrl mCtrl;
 
 	RegisterPresenter(IRegisterCtrl registerCtrl) {

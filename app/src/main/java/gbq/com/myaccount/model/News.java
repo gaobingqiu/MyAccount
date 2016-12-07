@@ -5,19 +5,20 @@ package gbq.com.myaccount.model;
  * 
  * @author gbq
  */
+@SuppressWarnings("unused")
 public class News {
-	private String ctime;
+	private String time;
 	private String title;
 	private String description;
 	private String picUrl;
 	private String url;
 
-	public String getCtime() {
-		return ctime;
+	public String getTime() {
+		return time;
 	}
 
-	public void setCtime(String ctime) {
-		this.ctime = ctime;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getTitle() {
@@ -54,7 +55,7 @@ public class News {
 
 	@Override
 	public String toString() {
-		return "News [ctime=" + ctime + ", title=" + title + ", description=" + description + ", picUrl=" + picUrl
+		return "News [time=" + time + ", title=" + title + ", description=" + description + ", picUrl=" + picUrl
 				+ ", url=" + url + "]";
 	}
 

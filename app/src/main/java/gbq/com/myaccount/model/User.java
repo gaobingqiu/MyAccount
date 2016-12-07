@@ -2,9 +2,10 @@ package gbq.com.myaccount.model;
 
 /**
  * 用户实体
- * 
+ *
  * @author gbq
  */
+@SuppressWarnings("unused")
 public class User {
 
 	private String id;
@@ -24,14 +25,14 @@ public class User {
 	private String tel;
 
 	private String email;
-	
+
 	private String androidImage;
 
 	private String image;
 
 	private String location;
 
-	private String birdate;
+	private String birthday;
 
 	private String idNum;
 
@@ -81,14 +82,6 @@ public class User {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public String getBirdate() {
-		return birdate;
-	}
-
-	public void setBirdate(String birdate) {
-		this.birdate = birdate;
 	}
 
 	public String getIdNum() {
@@ -151,4 +144,11 @@ public class User {
 		this.androidImage = androidImage;
 	}
 
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
 }

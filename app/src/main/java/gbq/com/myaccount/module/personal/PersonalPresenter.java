@@ -11,10 +11,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 个人中心的支持者
  * Created by gbq on 2016-11-12.
  */
 
-public class PersonalPresenter {
+class PersonalPresenter {
 	private IPersonalCtrl mCtrl;
 
 	PersonalPresenter(IPersonalCtrl personalCtrl) {

@@ -1,5 +1,6 @@
 package gbq.com.myaccount.model;
 
+@SuppressWarnings("unused")
 public class RegisterResponseVo {
 	private String tel;
 	private String userName;

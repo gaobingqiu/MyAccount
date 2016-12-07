@@ -2,22 +2,17 @@ package gbq.com.myaccount.module.register;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.module.register.success.RegisterSuccessActivity;
-import gbq.com.myaccount.net.HttpListener;
 
 import static gbq.com.myaccount.R.id.code;
 import static gbq.com.myaccount.R.id.loginName;
-import static gbq.com.myaccount.R.id.userName;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, IRegisterCtrl {
 	private final static String tag = "RegisterActivity";

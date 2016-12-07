@@ -123,6 +123,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.show();
 		Window win = alertDialog.getWindow();
+		assert win != null;
 		WindowManager.LayoutParams lp = win.getAttributes();
 		win.setGravity(Gravity.LEFT | Gravity.BOTTOM);
 		lp.alpha = 0.7f;

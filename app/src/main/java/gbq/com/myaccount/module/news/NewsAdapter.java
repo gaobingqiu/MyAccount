@@ -33,8 +33,6 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
 	/**
 	 * 此方法可以更新列表的数据
-	 *
-	 * @param mList
 	 */
 	void setList(List<News> mList) {
 		this.mList = mList;

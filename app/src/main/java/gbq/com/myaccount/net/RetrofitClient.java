@@ -1,22 +1,17 @@
 package gbq.com.myaccount.net;
 
-import android.util.Log;
-
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import gbq.com.myaccount.model.BaseResponse;
-import gbq.com.myaccount.model.User;
 import gbq.com.myaccount.model.News;
 import gbq.com.myaccount.model.RegisterResponseVo;
+import gbq.com.myaccount.model.User;
 import okhttp3.ConnectionPool;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -121,21 +116,7 @@ public class RetrofitClient {
 		baseCall.enqueue(call);
 	}
 
-	void uploadImg(String url, final HttpListener listener) {
+	void uploadImg(String url, Callback<BaseResponse<String>> call) {
 		File file = new File("/storage/emulated/0/sc/share.png");
-		RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-		Call<String> call = retrofitClientService.uploadImage(url, url, requestBody);
-		call.enqueue(new Callback<String>() {
-			@Override
-			public void onResponse(Call<String> call, Response<String> response) {
-				Log.v("Upload", response.message());
-				Log.v("Upload", "success");
-			}
-
-			@Override
-			public void onFailure(Call<String> call, Throwable t) {
-				Log.e("Upload", t.toString());
-			}
-		});
 	}
 }

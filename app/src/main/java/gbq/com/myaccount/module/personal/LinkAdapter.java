@@ -15,12 +15,12 @@ import gbq.com.myaccount.R;
  * Created by gbq on 2016-11-15.
  */
 
-public class LinkAdapter extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
+class LinkAdapter extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
     private Context mContext;
     private int[] mImages;
     private String[] mTitles;
 
-    public LinkAdapter(Context context, int[] images, String[] titles) {
+    LinkAdapter(Context context, int[] images, String[] titles) {
         this.mContext = context;
         this.mImages = images;
         this.mTitles = titles;

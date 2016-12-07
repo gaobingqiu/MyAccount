@@ -12,10 +12,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 注册成功页面的支持者
  * Created by gbq on 2016-11-12.
  */
 
-public class RegisterSuccessPresenter {
+class RegisterSuccessPresenter {
 	private IRegisterSuccessCtrl mCtrl;
 
 	RegisterSuccessPresenter(IRegisterSuccessCtrl mCtrl) {

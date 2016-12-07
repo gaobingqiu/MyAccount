@@ -7,14 +7,15 @@ import android.app.Application;
  * Created by gbq on 2016-12-6.
  */
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
 	private static MyApplication instance;
+
 	public static MyApplication getInstance() {
 		return instance;
 	}
+
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		instance = this;
 	}
