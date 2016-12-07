@@ -1,9 +1,12 @@
 package gbq.com.myaccount.module.main;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import gbq.com.myaccount.Define;
-import gbq.com.myaccount.net.BaseResponse;
+import gbq.com.myaccount.base.util.JsonUtil;
+import gbq.com.myaccount.model.User;
+import gbq.com.myaccount.model.BaseResponse;
 import gbq.com.myaccount.net.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +37,7 @@ public class MainPresenter {
 		RetrofitClient.getInstance().userLogin(userName, password, new Callback<BaseResponse<User>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+				Log.d("MainPresenter", JsonUtil.createJsonString(response));
 				if (response.isSuccess()) {
 					BaseResponse<User> baseResponse = response.body();
 					if (baseResponse.isOk()) {
@@ -53,6 +57,7 @@ public class MainPresenter {
 
 			@Override
 			public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+				Log.d("MainPresenter", JsonUtil.createJsonString(t));
 				mCtrl.showToast(Define.ERROR_NET);
 				mCtrl.closeProcess();
 			}

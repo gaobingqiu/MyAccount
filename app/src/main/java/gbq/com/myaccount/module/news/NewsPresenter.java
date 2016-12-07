@@ -6,8 +6,8 @@ import java.util.List;
 
 import gbq.com.myaccount.Define;
 import gbq.com.myaccount.base.util.JsonUtil;
-import gbq.com.myaccount.module.news.entity.News;
-import gbq.com.myaccount.net.BaseResponse;
+import gbq.com.myaccount.model.News;
+import gbq.com.myaccount.model.BaseResponse;
 import gbq.com.myaccount.net.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +43,7 @@ class NewsPresenter {
 		RetrofitClient.getInstance().getNews(type, pageIndex, new Callback<BaseResponse<List<News>>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<List<News>>> call, Response<BaseResponse<List<News>>> response) {
+				Log.d("NewsPresenter", JsonUtil.createJsonString(response));
 				if (response.isSuccess()) {
 					BaseResponse<List<News>> baseResponse = response.body();
 					Log.d("NewsPresenter", JsonUtil.createJsonString(baseResponse));
@@ -59,6 +60,7 @@ class NewsPresenter {
 
 			@Override
 			public void onFailure(Call<BaseResponse<List<News>>> call, Throwable t) {
+				Log.d("NewsPresenter", JsonUtil.createJsonString(t));
 				mCtrl.showToast(Define.ERROR_NET);
 				mCtrl.closeProcess();
 			}

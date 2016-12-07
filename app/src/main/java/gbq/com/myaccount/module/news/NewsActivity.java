@@ -17,7 +17,7 @@ import gbq.com.myaccount.Define;
 import gbq.com.myaccount.R;
 import gbq.com.myaccount.base.BaseActivity;
 import gbq.com.myaccount.base.util.BaseUtil;
-import gbq.com.myaccount.module.news.entity.News;
+import gbq.com.myaccount.model.News;
 import gbq.com.myaccount.module.news.web.NewsDetailActivity;
 
 /**

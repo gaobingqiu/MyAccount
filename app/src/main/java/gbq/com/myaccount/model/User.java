@@ -1,4 +1,4 @@
-package gbq.com.myaccount.module.main;
+package gbq.com.myaccount.model;
 
 /**
  * 用户实体

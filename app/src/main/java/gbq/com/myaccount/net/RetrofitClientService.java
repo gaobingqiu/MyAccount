@@ -3,12 +3,12 @@ package gbq.com.myaccount.net;
 
 import java.util.List;
 
-import gbq.com.myaccount.module.main.User;
-import gbq.com.myaccount.module.news.entity.News;
-import gbq.com.myaccount.module.register.RegisterResponseVo;
+import gbq.com.myaccount.model.BaseResponse;
+import gbq.com.myaccount.model.User;
+import gbq.com.myaccount.model.News;
+import gbq.com.myaccount.model.RegisterResponseVo;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;

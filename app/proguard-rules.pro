@@ -1,3 +1,4 @@
+
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
 # in D:\android-sdk-windows/tools/proguard/proguard-android.txt
@@ -18,11 +19,19 @@
 # copyright zhonghanwen
 #-------------------------------------------基本不用动区域--------------------------------------------
 #---------------------------------基本指令区----------------------------------
+ #指定代码的压缩级别
 -optimizationpasses 5
+#包明不混合大小写
+-dontusemixedcaseclassnames
+#不去忽略非公共的库类
 -dontskipnonpubliclibraryclassmembers
+#混淆的映射文件
 -printmapping proguardMapping.txt
+# 混淆时所采用的算法
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
+#保护注解
 -keepattributes *Annotation*,InnerClasses
+#避免混淆泛型 如果混淆报错建议关掉
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
 #----------------------------------------------------------------------------
@@ -107,8 +116,7 @@
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 #---------------------------------实体类---------------------------------
-#修改成你对应的包名
-#-keep class [your_pkg].** { *; }
+-keep class gbq.com.myaccount.model.** { *; }
 
 #---------------------------------第三方包-------------------------------
 
@@ -436,15 +444,24 @@ public void xxxxxx(**);
 -keep class com.a.a.**  {*;}
 #---------------------------------反射相关的类和方法-----------------------
 #在这下面写反射相关的类和方法，没有就不用写！
-
-
-
+#-keepattributes Signature
+#-keepattributes EnclosingMethod
 
 #---------------------------------与js互相调用的类------------------------
 #在这下面写与js互相调用的类，没有就去掉这句话！
 
 #---------------------------------自定义View的类------------------------
 #在这下面写自定义View的类的类，没有就去掉这句话！
+
+#保持自定义控件类不被混淆
+#    -keepclasseswithmembers class * {
+#        public <init>(android.content.Context, android.util.AttributeSet);
+#    }
+#
+#    #保持自定义控件类不被混淆
+#    -keepclassmembers class * extends android.app.Activity {
+#       public void *(android.view.View);
+#    }
 
 
 #SuperID

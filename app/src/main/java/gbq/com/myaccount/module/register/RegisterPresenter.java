@@ -1,9 +1,12 @@
 package gbq.com.myaccount.module.register;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import gbq.com.myaccount.Define;
-import gbq.com.myaccount.net.BaseResponse;
+import gbq.com.myaccount.base.util.JsonUtil;
+import gbq.com.myaccount.model.RegisterResponseVo;
+import gbq.com.myaccount.model.BaseResponse;
 import gbq.com.myaccount.net.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +71,7 @@ public class RegisterPresenter {
 		RetrofitClient.getInstance().getCode(tel, new Callback<BaseResponse<String>>() {
 			@Override
 			public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+				Log.d("RegisterPresenter", JsonUtil.createJsonString(response));
 				if (response.isSuccess()) {
 					BaseResponse<String> baseResponse = response.body();
 					if (baseResponse.isOk()) {
@@ -83,6 +87,7 @@ public class RegisterPresenter {
 
 			@Override
 			public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+				Log.d("RegisterPresenter", JsonUtil.createJsonString(t));
 				mCtrl.showToast(Define.ERROR_NET);
 				mCtrl.closeProcess();
 			}
@@ -92,6 +97,7 @@ public class RegisterPresenter {
 	private Callback<BaseResponse<RegisterResponseVo>> callback = new Callback<BaseResponse<RegisterResponseVo>>() {
 		@Override
 		public void onResponse(Call<BaseResponse<RegisterResponseVo>> call, Response<BaseResponse<RegisterResponseVo>> response) {
+			Log.d("RegisterPresenter", JsonUtil.createJsonString(response));
 			if (response.isSuccess()) {
 				BaseResponse<RegisterResponseVo> baseResponse = response.body();
 				if (baseResponse.isOk()) {
@@ -108,6 +114,7 @@ public class RegisterPresenter {
 
 		@Override
 		public void onFailure(Call<BaseResponse<RegisterResponseVo>> call, Throwable t) {
+			Log.d("RegisterPresenter", JsonUtil.createJsonString(t));
 			mCtrl.showToast(Define.ERROR_NET);
 			mCtrl.closeProcess();
 		}

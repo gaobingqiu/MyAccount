@@ -1,23 +1,19 @@
 package gbq.com.myaccount.module.news;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
 import gbq.com.myaccount.R;
-import gbq.com.myaccount.module.news.entity.News;
+import gbq.com.myaccount.model.News;
 
 /**
  * 新闻列表的适配器

@@ -3,7 +3,7 @@ package gbq.com.myaccount.module.news;
 import java.util.List;
 
 import gbq.com.myaccount.base.IBaseCtrl;
-import gbq.com.myaccount.module.news.entity.News;
+import gbq.com.myaccount.model.News;
 
 /**
  * 新闻活动的控制方法

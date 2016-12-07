@@ -1,4 +1,4 @@
-package gbq.com.myaccount.net;
+package gbq.com.myaccount.model;
 
 
 /**
