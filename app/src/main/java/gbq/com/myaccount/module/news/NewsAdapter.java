@@ -3,10 +3,14 @@ package gbq.com.myaccount.module.news;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -21,6 +25,8 @@ import gbq.com.myaccount.model.News;
  */
 
 class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+
+	private static final String TAG = "NewsAdapter";
 	private Context mContext;
 
 	private List<News> mList;
@@ -30,6 +36,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 		this.mContext = context;
 		this.mList = newList;
 	}
+
 
 	/**
 	 * 此方法可以更新列表的数据
@@ -55,7 +62,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 				listener.OnRecyclerItemClick(news.getUrl());
 			}
 		});
-		holder.timeTv.setText(news.getCtime());
+		holder.timeTv.setText(news.getTime());
 		holder.timeTv.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -84,6 +91,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 	public int getItemCount() {
 		return null == mList ? 0 : mList.size();
 	}
+
 
 	static class ViewHolder extends RecyclerView.ViewHolder {
 		private final TextView titleTv;

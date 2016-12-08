@@ -27,15 +27,18 @@ class NewsPresenter {
 
 	void loadNews(String type, int pageIndex) {
 		mCtrl.showProcess();
-		switch (type){
+		switch (type) {
 			case Define.NEWS_GLOBAL:
 				mCtrl.setMarginAndColor(0);
+				mCtrl.setTabColor("#0000FF", "#000000", "#000000");
 				break;
 			case Define.NEWS_SPORT:
 				mCtrl.setMarginAndColor(120);
+				mCtrl.setTabColor("#000000", "#0000FF", "#000000");
 				break;
 			case Define.NEWS_SCIENCE:
 				mCtrl.setMarginAndColor(240);
+				mCtrl.setTabColor("#000000", "#000000", "#0000FF");
 				break;
 			default:
 				break;
@@ -66,4 +69,5 @@ class NewsPresenter {
 			}
 		});
 	}
+
 }
